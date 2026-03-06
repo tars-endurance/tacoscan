@@ -904,9 +904,9 @@ const buildAppAuthorization = (provider) => {
     tacoOperator: provider.operator ? {
       id: provider.operator,
       operator: provider.operator,
-      confirmed: true,
-      bondedTimestamp: provider.startTimestamp,
-      bondedTimestampFirstOperator: provider.startTimestamp
+      confirmed: provider._confirmed !== undefined ? provider._confirmed : !!provider.operator,
+      bondedTimestamp: provider._createdAt || provider.startTimestamp,
+      bondedTimestampFirstOperator: provider._createdAt || provider.startTimestamp
     } : null
   };
 };
@@ -1296,6 +1296,23 @@ export const getNodes = async (isSearch, searchInput) => {
     }
 
     if (stakingProviders) {
+      // Enrich with Ethereum data for confirmed/bonded status
+      try {
+        const ethData = await gqlFetch(SUBGRAPH_ETHEREUM, `
+          query { stakingProviders(first: 1000) { id operator createdAt } }
+        `);
+        const ethMap = new Map((ethData?.stakingProviders || []).map(p => [p.id.toLowerCase(), p]));
+        stakingProviders = stakingProviders.map(p => {
+          const eth = ethMap.get(p.id.toLowerCase());
+          if (eth) {
+            const isConfirmed = eth.operator && eth.operator !== '0x0000000000000000000000000000000000000000';
+            return { ...p, _confirmed: isConfirmed, _createdAt: eth.createdAt };
+          }
+          return { ...p, _confirmed: false, _createdAt: null };
+        });
+      } catch (e) {
+        console.warn('Failed to enrich with Ethereum data:', e);
+      }
       return { appAuthorizations: stakingProviders.map(buildAppAuthorization) };
     }
   } catch (e) {
