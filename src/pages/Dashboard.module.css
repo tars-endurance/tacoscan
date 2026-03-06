@@ -168,7 +168,7 @@
 /* ── Main grid ────────────────────────────────────────────────────────────── */
 .mainGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr 220px;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   align-items: start;
 }
@@ -350,9 +350,10 @@
 .cohort_pending  { background: rgba(245,158,11,0.1);  color: #b45309;  border-color: rgba(245,158,11,0.3); }
 .cohort_inactive { background: var(--bg-tertiary);    color: var(--text-tertiary); }
 
+.mainGrid > *:last-child { grid-column: 1 / -1; }
+
 @media (max-width: 1100px) {
-  .mainGrid { grid-template-columns: 1fr 1fr; }
-  .mainGrid > *:last-child { grid-column: 1 / -1; }
+  .mainGrid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 700px) {

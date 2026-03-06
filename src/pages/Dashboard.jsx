@@ -97,6 +97,7 @@ const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [recentRituals, setRecentRituals] = useState([]);
   const [allRituals, setAllRituals] = useState([]);
+  const [recentHeartbeats, setRecentHeartbeats] = useState([]);
   const [recentCohorts, setRecentCohorts] = useState([]);
   const [cohortStats, setCohortStats] = useState(null);
 
@@ -122,6 +123,7 @@ const Dashboard = () => {
         });
         setAllRituals(formatted);
         setRecentRituals(regular.slice(0, 12));
+        setRecentHeartbeats(formatted.filter(r => r.isHeartbeat).slice(0, 8));
       } catch (err) {
         console.error('Dashboard rituals:', err);
       } finally {
@@ -265,7 +267,7 @@ const Dashboard = () => {
                   const signers = c.multisig?.signers?.length || c.signers?.length || c.participants?.length || 0;
                   const threshold = c.multisig?.threshold || c.threshold || 0;
                   return (
-                    <tr key={c.id} className={styles.clickableRow} onClick={() => navigate(`/cohorts/${c.id}`)}>
+                    <tr key={c.id} className={styles.clickableRow} onClick={() => navigate(`/cohort/${c.id}`)}>
                       <td className={styles.idCell}>#{c.id}</td>
                       <td><span className={`${styles.statusBadge} ${cohortStatusClass(c.status)}`}>{cohortStatusLabel(c.status)}</span></td>
                       <td className={styles.dimCell}>{threshold ? `${threshold} of ${signers}` : `— of ${signers}`}</td>
@@ -276,6 +278,30 @@ const Dashboard = () => {
                 })}
                 {!cohortsLoading && recentCohorts.length === 0 && (
                   <tr><td colSpan={5} className={styles.emptyRow}>No cohorts found</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Recent Heartbeats */}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <span className={styles.cardTitle}>Recent Heartbeats</span>
+              <Link to="/heartbeats" className={styles.viewAll}>View all →</Link>
+            </div>
+            <table className={styles.table}>
+              <thead><tr><th>#</th><th>Status</th><th>Nodes</th><th>Age</th></tr></thead>
+              <tbody>
+                {loading ? <SkeletonRows rows={6} cols={4} /> : recentHeartbeats.map(r => (
+                  <tr key={r.id} className={styles.clickableRow} onClick={() => navigate(`/rituals/${r.id}`)}>
+                    <td className={styles.idCell}>{r.id}</td>
+                    <td><span className={`${styles.statusBadge} ${ritualStatusClass(r.status)}`}>{STATUS_SHORT[r.status] || r.status}</span></td>
+                    <td className={styles.numCell}>{r.totalParticipants}</td>
+                    <td className={styles.ageCell}>{calculateTimeMoment(r.updateTime)}</td>
+                  </tr>
+                ))}
+                {!loading && recentHeartbeats.length === 0 && (
+                  <tr><td colSpan={4} className={styles.emptyRow}>No heartbeats found</td></tr>
                 )}
               </tbody>
             </table>
