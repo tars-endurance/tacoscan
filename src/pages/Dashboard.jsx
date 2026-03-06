@@ -247,6 +247,9 @@ const Dashboard = () => {
             </table>
           </div>
 
+          {/* Right column: Cohorts + Heartbeats stacked */}
+          <div className={styles.rightStack}>
+
           {/* Signing Cohorts */}
           <div className={styles.card}>
             <div className={styles.cardHeader}>
@@ -306,6 +309,7 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
+          </div>{/* /rightStack */}
 
           {/* Explore */}
           <div className={styles.card}>

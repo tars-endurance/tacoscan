@@ -173,6 +173,12 @@
   align-items: start;
 }
 
+.rightStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 /* ── Cards ────────────────────────────────────────────────────────────────── */
 .card {
   background: var(--bg-surface);
