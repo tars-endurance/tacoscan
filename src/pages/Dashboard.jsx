@@ -231,7 +231,25 @@ const Dashboard = () => {
           )}
         </div>
 
-        {/* ── Main grid: Rituals + Cohorts + Explore ── */}
+        {/* ── Explore cards ── */}
+        <div className={styles.exploreGrid}>
+          {[
+            { path: '/nodes',       label: 'Node Operators',   desc: 'Authorized staking providers',    count: stats?.totalNodes },
+            { path: '/cohorts',     label: 'Signing Cohorts',  desc: 'Threshold signing groups',        count: cohortStats?.total },
+            { path: '/heartbeats',  label: 'Heartbeats',       desc: 'Weekly DKG health checks',        count: heartbeatCount || null },
+            { path: '/rewards',     label: 'Rewards',          desc: 'T token distributions',           count: exploreCounts.rewards },
+            { path: '/infractions', label: 'Infractions',      desc: 'Missed transcripts & penalties',  count: exploreCounts.infractions },
+            { path: '/activity',    label: 'Protocol Events',  desc: 'Cross-chain event feed',          count: exploreCounts.totalEvents },
+          ].map(s => (
+            <Link key={s.path} to={s.path} className={styles.exploreCard}>
+              <span className={styles.exploreCount}>{s.count != null ? s.count.toLocaleString() : '—'}</span>
+              <span className={styles.exploreLabel}>{s.label}</span>
+              <span className={styles.exploreDesc}>{s.desc}</span>
+            </Link>
+          ))}
+        </div>
+
+        {/* ── Main grid: Rituals + Cohorts ── */}
         <div className={styles.mainGrid}>
 
           {/* Recent DKG Rituals */}
@@ -322,24 +340,6 @@ const Dashboard = () => {
             </table>
           </div>
           </div>{/* /rightStack */}
-
-          {/* Explore */}
-          <div className={styles.exploreGrid}>
-            {[
-              { path: '/nodes',       label: 'Node Operators',   desc: 'Authorized staking providers',    count: stats?.totalNodes },
-              { path: '/cohorts',     label: 'Signing Cohorts',  desc: 'Threshold signing groups',        count: cohortStats?.total },
-              { path: '/heartbeats',  label: 'Heartbeats',       desc: 'Weekly DKG health checks',        count: heartbeatCount || null },
-              { path: '/rewards',     label: 'Rewards',          desc: 'T token distributions',           count: exploreCounts.rewards },
-              { path: '/infractions', label: 'Infractions',      desc: 'Missed transcripts & penalties',  count: exploreCounts.infractions },
-              { path: '/activity',    label: 'Protocol Events',  desc: 'Cross-chain event feed',          count: exploreCounts.totalEvents },
-            ].map(s => (
-              <Link key={s.path} to={s.path} className={styles.exploreCard}>
-                <span className={styles.exploreCount}>{s.count != null ? s.count.toLocaleString() : '—'}</span>
-                <span className={styles.exploreLabel}>{s.label}</span>
-                <span className={styles.exploreDesc}>{s.desc}</span>
-              </Link>
-            ))}
-          </div>
 
         </div>
       </div>
