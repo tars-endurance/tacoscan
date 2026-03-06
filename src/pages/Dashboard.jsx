@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   getRituals, getNodes, formatRitualsData, formatNodes,
   getTimeout, getLiveRitualIds, calculateTimeMoment, formatString,
-  getSigningCohortsFromSubgraph,
+  getSigningCohortsFromSubgraph, getAllNetworkEvents,
 } from './data';
 import styles from './Dashboard.module.css';
 import { SkeletonRows } from '../components/Skeleton';
@@ -100,6 +100,7 @@ const Dashboard = () => {
   const [recentHeartbeats, setRecentHeartbeats] = useState([]);
   const [recentCohorts, setRecentCohorts] = useState([]);
   const [cohortStats, setCohortStats] = useState(null);
+  const [exploreCounts, setExploreCounts] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -148,6 +149,17 @@ const Dashboard = () => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    getAllNetworkEvents().then(events => {
+      const rewards = events.filter(e => e.category === 'reward').length;
+      const infractions = events.filter(e => e.category === 'infraction').length;
+      const totalEvents = events.length;
+      setExploreCounts({ rewards, infractions, totalEvents });
+    }).catch(() => {});
+  }, []);
+
+  const heartbeatCount = allRituals.filter(r => r.isHeartbeat).length;
 
   return (
     <div className={styles.page}>
@@ -312,26 +324,21 @@ const Dashboard = () => {
           </div>{/* /rightStack */}
 
           {/* Explore */}
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardTitle}>Explore</span>
-            </div>
-            <div className={styles.sectionLinks}>
-              {[
-                { path: '/nodes',       label: 'Node Operators',   desc: 'Authorized staking providers' },
-                { path: '/cohorts',     label: 'Signing Cohorts',  desc: 'Threshold signing groups' },
-                { path: '/heartbeats',  label: 'Heartbeats',       desc: 'Weekly DKG health checks' },
-                { path: '/rewards',     label: 'Rewards',          desc: 'T token distributions' },
-                { path: '/infractions', label: 'Infractions',      desc: 'Missed transcripts & penalties' },
-                { path: '/activity',    label: 'Protocol Events',  desc: 'Cross-chain event feed' },
-              ].map(s => (
-                <Link key={s.path} to={s.path} className={styles.sectionLink}>
-                  <span className={styles.sectionLinkLabel}>{s.label}</span>
-                  <span className={styles.sectionLinkDesc}>{s.desc}</span>
-                  <span className={styles.sectionLinkArrow}>→</span>
-                </Link>
-              ))}
-            </div>
+          <div className={styles.exploreGrid}>
+            {[
+              { path: '/nodes',       label: 'Node Operators',   desc: 'Authorized staking providers',    count: stats?.totalNodes },
+              { path: '/cohorts',     label: 'Signing Cohorts',  desc: 'Threshold signing groups',        count: cohortStats?.total },
+              { path: '/heartbeats',  label: 'Heartbeats',       desc: 'Weekly DKG health checks',        count: heartbeatCount || null },
+              { path: '/rewards',     label: 'Rewards',          desc: 'T token distributions',           count: exploreCounts.rewards },
+              { path: '/infractions', label: 'Infractions',      desc: 'Missed transcripts & penalties',  count: exploreCounts.infractions },
+              { path: '/activity',    label: 'Protocol Events',  desc: 'Cross-chain event feed',          count: exploreCounts.totalEvents },
+            ].map(s => (
+              <Link key={s.path} to={s.path} className={styles.exploreCard}>
+                <span className={styles.exploreCount}>{s.count != null ? s.count.toLocaleString() : '—'}</span>
+                <span className={styles.exploreLabel}>{s.label}</span>
+                <span className={styles.exploreDesc}>{s.desc}</span>
+              </Link>
+            ))}
           </div>
 
         </div>
