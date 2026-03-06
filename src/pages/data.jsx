@@ -528,9 +528,8 @@ export const formatRitualsData = (rawData, timeout, liveRitualIds = new Set()) =
       const threshold = ritual.threshold ?? null;
       const latestTransaction = transactions[0];
 
-      // Heartbeat detection: size ≤3 AND no access controls = heartbeat DKG
-      // Live/paid rituals have RitualAccessControl entries (fee model activity)
-      const isHeartbeat = participants.length <= 3 && !liveRitualIds.has(String(ritual.id));
+      // Heartbeat detection: size ≤3 = heartbeat DKG (all small rituals are heartbeats)
+      const isHeartbeat = participants.length <= 3;
 
       return {
         id: ritual.id,
