@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import styles from "./SigningCohortDetail.module.css";
 import { formatString, formatDate, calculateTimeMoment, formatTimeToText, getSigningCohortDetail, getOpExecutionsByDomain } from "./data";
 import ConditionRenderer from "../components/ConditionRenderer";
+import ChainIcon from "../components/ChainIcon";
 import { PageSkeleton } from "../components/Skeleton";
 
 // ── Chain helpers ─────────────────────────────────────────────────────────────
@@ -142,7 +143,7 @@ const SigningCohortDetail = () => {
                 : `— of ${cohort?.signersCount}`}
             </span>
             <span className={styles.metaDot}>·</span>
-            <span className={styles.metaItem}>{chainName(cohort?.chainId)}</span>
+            <span className={styles.metaItem}><ChainIcon chainId={cohort?.chainId} size={14} showLabel /></span>
             {cohort?.createdAt && (
               <>
                 <span className={styles.metaDot}>·</span>
@@ -159,7 +160,7 @@ const SigningCohortDetail = () => {
           <div className={styles.infoCard}>
             <div className={styles.infoCardTitle}>Identity</div>
             <KV label="ID">{cohort?.id}</KV>
-            <KV label="Chain">{chainName(cohort?.chainId)} <span className={styles.chainId}>({cohort?.chainId})</span></KV>
+            <KV label="Chain"><ChainIcon chainId={cohort?.chainId} size={14} showLabel /> <span className={styles.chainId}>({cohort?.chainId})</span></KV>
             {cohort?.domain && <KV label="Domain" mono>{short(cohort.domain)}</KV>}
             {cohort?.authority && (
               <KV label="Authority" mono>

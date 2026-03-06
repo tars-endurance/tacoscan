@@ -4,6 +4,7 @@ import styles from './SigningCohorts.module.css';
 import { calculateTimeMoment, getSigningCohortsFromSubgraph } from './data';
 import PageHeader from '../components/PageHeader';
 import { ListSkeleton } from '../components/Skeleton';
+import ChainIcon from '../components/ChainIcon';
 
 // ── Condition hex decoder ─────────────────────────────────────────────────────
 function decodeConditions(hex) {
@@ -360,7 +361,7 @@ const SigningCohorts = () => {
                   <td className={styles.nodesCell}>
                     <span className={styles.nodeCount}>{cohort.signersCount}</span>
                     {cohort.chainId && (
-                      <span className={styles.chainBadge}>{chainLabel(cohort.chainId)}</span>
+                      <ChainIcon chainId={cohort.chainId} size={14} />
                     )}
                   </td>
 

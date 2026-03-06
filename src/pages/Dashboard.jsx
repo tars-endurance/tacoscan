@@ -7,6 +7,7 @@ import {
 } from './data';
 import styles from './Dashboard.module.css';
 import { SkeletonRows } from '../components/Skeleton';
+import ChainIcon from '../components/ChainIcon';
 
 // ── Status helpers ──────────────────────────────────────────────────────────
 const ritualStatusClass = (s) => {
@@ -308,7 +309,7 @@ const Dashboard = () => {
                       <td className={styles.idCell}>#{c.id}</td>
                       <td><span className={`${styles.statusBadge} ${cohortStatusClass(c.status)}`}>{cohortStatusLabel(c.status)}</span></td>
                       <td className={styles.dimCell}>{threshold ? `${threshold} of ${signers}` : `— of ${signers}`}</td>
-                      <td className={styles.chainCell}>{chainName(c.chainId)}</td>
+                      <td className={styles.chainCell}><ChainIcon chainId={c.chainId} size={14} /></td>
                       <td className={styles.ageCell}>{c.createdAt ? calculateTimeMoment(parseInt(c.createdAt) * 1000) : '—'}</td>
                     </tr>
                   );
