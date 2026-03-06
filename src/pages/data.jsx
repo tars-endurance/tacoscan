@@ -916,28 +916,28 @@ const buildAppAuthorization = (provider) => {
 
 const ETHEREUM_EVENTS_QUERY = `
   query EthereumEvents {
-    authorizationEvents(first: 500, orderBy: timestamp, orderDirection: desc) {
+    authorizationEvents(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id eventType fromAmount toAmount penalty investigator reward
       deauthorizing endDeauthorization operator
       stakingProvider { id }
       transactionHash blockNumber timestamp
     }
-    rewardEvents(first: 200, orderBy: timestamp, orderDirection: desc) {
+    rewardEvents(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id eventType amount sender beneficiary
       endCommitment penaltyPercent endPenalty contract distributor
       stakingProvider { id }
       transactionHash blockNumber timestamp
     }
-    governanceEvents(first: 100, orderBy: timestamp, orderDirection: desc) {
+    governanceEvents(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id eventType contract oldValue newValue
       oldValueInt newValueInt oldValueAddress newValueAddress
       domain transactionHash blockNumber timestamp
     }
-    bridgeMessages(first: 100, orderBy: timestamp, orderDirection: desc) {
+    bridgeMessages(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain messageType stakingProvider
       transactionHash blockNumber timestamp
     }
-    infractions(first: 100, orderBy: timestamp, orderDirection: desc) {
+    infractions(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain infractionType infractionTypeName
       stakingProvider { id }
       ritual { id }
@@ -948,49 +948,49 @@ const ETHEREUM_EVENTS_QUERY = `
 
 const POLYGON_EVENTS_QUERY = `
   query PolygonEvents {
-    ritualTransactions(first: 500, orderBy: timestamp, orderDirection: desc) {
+    ritualTransactions(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id eventType participant transcriptDigest aggregatedTranscriptDigest
       previousAuthority newAuthority
       ritual { id }
       transactionHash blockNumber timestamp gasUsed
     }
-    handovers(first: 100, orderBy: createdAt, orderDirection: desc) {
+    handovers(first: 1000, orderBy: createdAt, orderDirection: desc) {
       id departingParticipant incomingParticipant status
       ritual { id }
       requestedAt transcriptPostedAt blindedSharePostedAt canceledAt finalizedAt
       createdAt updatedAt
     }
-    subscriptionPayments(first: 200, orderBy: timestamp, orderDirection: desc) {
+    subscriptionPayments(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain policyId subscriber amount period slots paymentType
       policy { id sponsor owner }
       transactionHash blockNumber timestamp
     }
-    policies(first: 100, orderBy: timestamp, orderDirection: desc) {
+    policies(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain sponsor owner size startTimestamp endTimestamp cost
       transactionHash blockNumber timestamp
     }
-    ritualAccessControls(first: 100, orderBy: timestamp, orderDirection: desc) {
+    ritualAccessControls(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain ritualId address isAuthorized
       transactionHash blockNumber timestamp
     }
-    reimbursementWithdrawals(first: 100, orderBy: timestamp, orderDirection: desc) {
+    reimbursementWithdrawals(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain recipient amount transactionHash blockNumber timestamp
     }
-    reimbursementFailures(first: 100, orderBy: timestamp, orderDirection: desc) {
+    reimbursementFailures(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain recipient amount transactionHash blockNumber timestamp
     }
-    governanceEvents(first: 100, orderBy: timestamp, orderDirection: desc) {
+    governanceEvents(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id eventType contract oldValue newValue
       oldValueInt newValueInt oldValueAddress newValueAddress
       domain transactionHash blockNumber timestamp
     }
-    infractions(first: 100, orderBy: timestamp, orderDirection: desc) {
+    infractions(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain infractionType infractionTypeName
       stakingProvider { id }
       ritual { id }
       timestamp
     }
-    bridgeMessages(first: 100, orderBy: timestamp, orderDirection: desc) {
+    bridgeMessages(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain messageType stakingProvider
       transactionHash blockNumber timestamp
     }
@@ -999,39 +999,39 @@ const POLYGON_EVENTS_QUERY = `
 
 const BASE_EVENTS_QUERY = `
   query BaseEvents {
-    signingCohorts(first: 100, orderBy: createdAt, orderDirection: desc) {
+    signingCohorts(first: 1000, orderBy: createdAt, orderDirection: desc) {
       id domain chainId authority participants status
       isDeployed deployedAt multisigAddress signers threshold
       createdAt updatedAt
     }
-    signingCohortSignatures(first: 200, orderBy: timestamp, orderDirection: desc) {
+    signingCohortSignatures(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id provider signer
       cohort { id }
       transactionHash blockNumber timestamp
     }
-    multisigClones(first: 100, orderBy: createdAt, orderDirection: desc) {
+    multisigClones(first: 1000, orderBy: createdAt, orderDirection: desc) {
       id domain cohortId factory signers threshold
       isCleared executionCount totalValue lastExecutedAt
       createdAt updatedAt
     }
-    multisigExecutions(first: 200, orderBy: timestamp, orderDirection: desc) {
+    multisigExecutions(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id sender nonce destination value
       multisig { id }
       transactionHash blockNumber timestamp gasUsed
     }
-    multisigSignerEvents(first: 100, orderBy: timestamp, orderDirection: desc) {
+    multisigSignerEvents(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id eventType signer newSigner
       multisig { id }
       transactionHash blockNumber timestamp
     }
-    opExecutions(first: 100, orderBy: timestamp, orderDirection: desc) {
+    opExecutions(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id domain target result
       transactionHash blockNumber timestamp gasUsed
     }
-    contractAuthorizations(first: 50, orderBy: createdAt, orderDirection: desc) {
+    contractAuthorizations(first: 1000, orderBy: createdAt, orderDirection: desc) {
       id domain contract isAuthorized createdAt updatedAt
     }
-    governanceEvents(first: 100, orderBy: timestamp, orderDirection: desc) {
+    governanceEvents(first: 1000, orderBy: timestamp, orderDirection: desc) {
       id eventType contract oldValue newValue
       oldValueInt newValueInt oldValueAddress newValueAddress
       domain transactionHash blockNumber timestamp
