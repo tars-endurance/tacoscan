@@ -237,7 +237,6 @@ const Dashboard = () => {
             { path: '/nodes',       label: 'Node Operators',   desc: 'Authorized staking providers',    count: stats?.totalNodes },
             { path: '/cohorts',     label: 'Signing Cohorts',  desc: 'Threshold signing groups',        count: cohortStats?.total },
             { path: '/heartbeats',  label: 'Heartbeats',       desc: 'Weekly DKG health checks',        count: heartbeatCount || null },
-            { path: '/rewards',     label: 'Rewards',          desc: 'T token distributions',           count: exploreCounts.rewards },
             { path: '/infractions', label: 'Infractions',      desc: 'Missed transcripts & penalties',  count: exploreCounts.infractions },
             { path: '/activity',    label: 'Protocol Events',  desc: 'Cross-chain event feed',          count: exploreCounts.totalEvents },
           ].map(s => (
