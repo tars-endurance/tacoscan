@@ -946,14 +946,11 @@ const ETHEREUM_EVENTS_QUERY = `
   }
 `;
 
+const RITUAL_TX_FIELDS = `id eventType participant transcriptDigest aggregatedTranscriptDigest
+      previousAuthority newAuthority ritual { id } transactionHash blockNumber timestamp gasUsed`;
+
 const POLYGON_EVENTS_QUERY = `
   query PolygonEvents {
-    ritualTransactions(first: 1000, orderBy: timestamp, orderDirection: desc) {
-      id eventType participant transcriptDigest aggregatedTranscriptDigest
-      previousAuthority newAuthority
-      ritual { id }
-      transactionHash blockNumber timestamp gasUsed
-    }
     handovers(first: 1000, orderBy: createdAt, orderDirection: desc) {
       id departingParticipant incomingParticipant status
       ritual { id }
@@ -1050,12 +1047,28 @@ const safeFetch = async (endpoint, query, chainLabel, variables = {}) => {
   }
 };
 
+// Paginated fetch for entities exceeding 1000 limit
+const paginatedFetch = async (endpoint, entityName, fields, chainLabel, pageSize = 1000) => {
+  const all = [];
+  let skip = 0;
+  while (true) {
+    const query = `query { ${entityName}(first: ${pageSize}, skip: ${skip}, orderBy: timestamp, orderDirection: desc) { ${fields} } }`;
+    const data = await safeFetch(endpoint, query, chainLabel);
+    const batch = data?.[entityName] || [];
+    all.push(...batch);
+    if (batch.length < pageSize) break;
+    skip += pageSize;
+  }
+  return all;
+};
+
 export const getAllNetworkEvents = async () => {
   try {
-    const [ethData, polyData, baseData] = await Promise.all([
+    const [ethData, polyData, baseData, ritualTxs] = await Promise.all([
       safeFetch(SUBGRAPH_ETHEREUM, ETHEREUM_EVENTS_QUERY, 'Ethereum'),
       safeFetch(SUBGRAPH_POLYGON, POLYGON_EVENTS_QUERY, 'Polygon'),
       safeFetch(SUBGRAPH_BASE, BASE_EVENTS_QUERY, 'Base'),
+      paginatedFetch(SUBGRAPH_POLYGON, 'ritualTransactions', RITUAL_TX_FIELDS, 'Polygon'),
     ]);
 
     const events = [];
@@ -1110,7 +1123,7 @@ export const getAllNetworkEvents = async () => {
     });
 
     // ── Polygon Events ──
-    (polyData.ritualTransactions || []).forEach(e => {
+    (ritualTxs || []).forEach(e => {
       events.push({
         chain: 'polygon', category: 'ritual', type: e.eventType,
         ritualId: e.ritual?.id, participant: e.participant,
