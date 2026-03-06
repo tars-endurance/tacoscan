@@ -198,7 +198,12 @@ const Dashboard = () => {
                   <span className={`${styles.heroVal} ${styles.heroValGreen}`}>{stats.successRate}%</span>
                   <span className={styles.heroLbl}>success</span>
                 </div>
-                {cohortStats && cohortStats.totalSignatures > 0 && (<>
+                {cohortStats && (<>
+                  <div className={styles.heroDivider} />
+                  <div className={styles.heroStat}>
+                    <span className={styles.heroVal}>{cohortStats.total}</span>
+                    <span className={styles.heroLbl}>cohorts</span>
+                  </div>
                   <div className={styles.heroDivider} />
                   <div className={styles.heroStat}>
                     <span className={`${styles.heroVal} ${styles.heroValGreen}`}>
@@ -322,7 +327,7 @@ const Dashboard = () => {
               <Link to="/heartbeats" className={styles.viewAll}>View all →</Link>
             </div>
             <table className={styles.table}>
-              <thead><tr><th>#</th><th>Status</th><th>Nodes</th><th>Age</th></tr></thead>
+              <thead><tr><th style={{width:'15%'}}>#</th><th style={{width:'20%'}}>Status</th><th style={{width:'15%'}}>Nodes</th><th>Age</th></tr></thead>
               <tbody>
                 {loading ? <SkeletonRows rows={6} cols={4} /> : recentHeartbeats.map(r => (
                   <tr key={r.id} className={styles.clickableRow} onClick={() => navigate(`/rituals/${r.id}`)}>
