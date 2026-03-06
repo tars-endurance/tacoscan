@@ -352,7 +352,7 @@
 }
 
 .dimCell  { color: var(--text-secondary); font-size: 11px; font-family: var(--font-mono); }
-.chainCell { color: var(--text-tertiary); font-size: 11px; font-family: var(--font-mono); }
+.chainCell { color: var(--text-tertiary); font-size: 11px; font-family: var(--font-mono); display: flex; align-items: center; gap: 3px; }
 
 /* Cohort status badges */
 .cohort_active   { background: rgba(16,185,129,0.1);  color: #15803d;  border-color: rgba(16,185,129,0.3); }

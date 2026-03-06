@@ -163,6 +163,12 @@
   margin-right: 6px;
 }
 
+.chainIcons {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
 .chainBadge {
   font-size: 9px;
   font-weight: 700;

@@ -309,7 +309,10 @@ const Dashboard = () => {
                       <td className={styles.idCell}>#{c.id}</td>
                       <td><span className={`${styles.statusBadge} ${cohortStatusClass(c.status)}`}>{cohortStatusLabel(c.status)}</span></td>
                       <td className={styles.dimCell}>{threshold ? `${threshold} of ${signers}` : `— of ${signers}`}</td>
-                      <td className={styles.chainCell}><ChainIcon chainId={c.chainId} size={14} /></td>
+                      <td className={styles.chainCell}>
+                        <ChainIcon chainId="1" size={14} />
+                        {c.chainId && String(c.chainId) !== '1' && <ChainIcon chainId={c.chainId} size={14} />}
+                      </td>
                       <td className={styles.ageCell}>{c.createdAt ? calculateTimeMoment(parseInt(c.createdAt) * 1000) : '—'}</td>
                     </tr>
                   );

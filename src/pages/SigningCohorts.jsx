@@ -360,9 +360,12 @@ const SigningCohorts = () => {
                   {/* Nodes */}
                   <td className={styles.nodesCell}>
                     <span className={styles.nodeCount}>{cohort.signersCount}</span>
-                    {cohort.chainId && (
-                      <ChainIcon chainId={cohort.chainId} size={14} />
-                    )}
+                    <span className={styles.chainIcons}>
+                      <ChainIcon chainId="1" size={14} />
+                      {cohort.chainId && cohort.chainId !== '1' && (
+                        <ChainIcon chainId={cohort.chainId} size={14} />
+                      )}
+                    </span>
                   </td>
 
                   {/* Threshold */}
