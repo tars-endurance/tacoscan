@@ -1,8 +1,8 @@
 const NETWORK_CONFIGS = {
   mainnet: {
-    subgraphPolygon:  'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-mainnet-polygon/2.1.13/gn',
-    subgraphEthereum: 'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-mainnet-ethereum/v2.1.7/gn',
-    subgraphBase:     'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-mainnet-base/2.1.8/gn',
+    subgraphPolygon:  'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-mainnet-polygon/latest/gn',
+    subgraphEthereum: 'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-mainnet-ethereum/latest/gn',
+    subgraphBase:     'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-mainnet-base/latest/gn',
     rpcEth:     'https://ethereum-rpc.publicnode.com',
     rpcPolygon: 'https://polygon-bor-rpc.publicnode.com',
     etherscan:    'https://etherscan.io',
@@ -10,9 +10,9 @@ const NETWORK_CONFIGS = {
     coordinator:  '0xe74259e3dafe30baa8700238e324b47ac98fe755',
   },
   lynx: {
-    subgraphPolygon:  'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-lynx-polygon/2.1.12/gn',
-    subgraphEthereum: 'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-lynx-ethereum/v2.1.5/gn',
-    subgraphBase:     'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-lynx-base/2.1.6/gn',
+    subgraphPolygon:  'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-lynx-polygon/latest/gn',
+    subgraphEthereum: 'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-lynx-ethereum/latest/gn',
+    subgraphBase:     'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-lynx-base/latest/gn',
     rpcEth:     'https://sepolia.infura.io/v3/0b802427db2e42e18e8eadd1ec01f934',
     rpcPolygon: 'https://polygon-amoy.infura.io/v3/0b802427db2e42e18e8eadd1ec01f934',
     etherscan:    'https://sepolia.etherscan.io',
@@ -20,9 +20,9 @@ const NETWORK_CONFIGS = {
     coordinator:  null,
   },
   tapir: {
-    subgraphPolygon:  'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-tapir-polygon/2.1.10/gn',
-    subgraphEthereum: 'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-tapir-ethereum/v2.1.5/gn',
-    subgraphBase:     'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-tapir-base/2.1.6/gn',
+    subgraphPolygon:  'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-tapir-polygon/latest/gn',
+    subgraphEthereum: 'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-tapir-ethereum/latest/gn',
+    subgraphBase:     'https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/taco-tapir-base/latest/gn',
     rpcEth:     'https://sepolia.infura.io/v3/0b802427db2e42e18e8eadd1ec01f934',
     rpcPolygon: 'https://polygon-amoy.infura.io/v3/0b802427db2e42e18e8eadd1ec01f934',
     etherscan:    'https://sepolia.etherscan.io',
